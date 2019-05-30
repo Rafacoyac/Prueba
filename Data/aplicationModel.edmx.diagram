@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="c27cdcff856647df87991e6e70929781" Name="Diagram1">
+        <EntityTypeShape EntityType="aplicationModel.Alumno" Width="1.5" PointX="5.25" PointY="2.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="aplicationModel.Carrera" Width="1.5" PointX="3" PointY="3.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="aplicationModel.dia" Width="1.5" PointX="0.75" PointY="15" IsExpanded="true" />
+        <EntityTypeShape EntityType="aplicationModel.Especialidad" Width="1.5" PointX="0.75" PointY="3.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="aplicationModel.Grupos" Width="1.5" PointX="3" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="aplicationModel.Horario" Width="1.5" PointX="7.5" PointY="3.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="aplicationModel.Maestro_Materia" Width="1.5" PointX="5.25" PointY="13.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="aplicationModel.Maestro" Width="1.5" PointX="3" PointY="11.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="aplicationModel.Materia" Width="1.5" PointX="3" PointY="14.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="aplicationModel.OpcionCurso" Width="1.5" PointX="3" PointY="6.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="aplicationModel.Salone" Width="1.5" PointX="5.25" PointY="10.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="aplicationModel.Semestre" Width="1.5" PointX="3" PointY="9" IsExpanded="true" />
+        <EntityTypeShape EntityType="aplicationModel.tokene" Width="1.5" PointX="7.5" PointY="6.5" IsExpanded="true" />
+        <AssociationConnector Association="aplicationModel.FK_Alumnos_Carreras" ManuallyRouted="false" />
+        <AssociationConnector Association="aplicationModel.FK_Alumnos_Grupos" ManuallyRouted="false" />
+        <AssociationConnector Association="aplicationModel.FK_Alumnos_OpcionCurso" ManuallyRouted="false" />
+        <AssociationConnector Association="aplicationModel.FK_Alumnos_Semestre" ManuallyRouted="false" />
+        <AssociationConnector Association="aplicationModel.FK_Horario_Alumnos" ManuallyRouted="false" />
+        <AssociationConnector Association="aplicationModel.FK_tokenes_Alumnos" ManuallyRouted="false" />
+        <AssociationConnector Association="aplicationModel.FK_Carreras_Especialidad" ManuallyRouted="false" />
+        <AssociationConnector Association="aplicationModel.FK_Materias_dia" ManuallyRouted="false" />
+        <AssociationConnector Association="aplicationModel.FK_Horario_Maestro_Materia" ManuallyRouted="false" />
+        <AssociationConnector Association="aplicationModel.FK_Horario_Salones" ManuallyRouted="false" />
+        <AssociationConnector Association="aplicationModel.FK_Mestro_Materia_Maestros" ManuallyRouted="false" />
+        <AssociationConnector Association="aplicationModel.FK_Mestro_Materia_Materias" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

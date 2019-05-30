@@ -1,0 +1,814 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="aplicationModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Alumnos">
+          <Key>
+            <PropertyRef Name="id_Alumnos" />
+          </Key>
+          <Property Name="id_Alumnos" Type="int" Nullable="false" />
+          <Property Name="nombre" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="apeP" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="apeM" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="contrasena" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="Grupos" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="id_Carreras" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="semestre" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="OpcionCurso" Type="varchar" MaxLength="20" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Carreras">
+          <Key>
+            <PropertyRef Name="id_Carreras" />
+          </Key>
+          <Property Name="id_Carreras" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Carreras" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="especialidad" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="dia">
+          <Key>
+            <PropertyRef Name="dia" />
+          </Key>
+          <Property Name="dia" Type="varchar" MaxLength="10" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Especialidad">
+          <Key>
+            <PropertyRef Name="especialidad" />
+          </Key>
+          <Property Name="especialidad" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Grupos">
+          <Key>
+            <PropertyRef Name="Grupos" />
+          </Key>
+          <Property Name="Grupos" Type="varchar" MaxLength="20" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Horario">
+          <Key>
+            <PropertyRef Name="horario" />
+          </Key>
+          <Property Name="horario" Type="int" Nullable="false" />
+          <Property Name="id_Alumnos" Type="int" Nullable="false" />
+          <Property Name="Salones" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="maestroMateria" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Maestro_Materia">
+          <Key>
+            <PropertyRef Name="maestroMateria" />
+          </Key>
+          <Property Name="maestroMateria" Type="int" Nullable="false" />
+          <Property Name="id_Maestro" Type="int" Nullable="false" />
+          <Property Name="claveMateria" Type="varchar" MaxLength="30" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Maestros">
+          <Key>
+            <PropertyRef Name="id_Maestro" />
+          </Key>
+          <Property Name="id_Maestro" Type="int" Nullable="false" />
+          <Property Name="nombre" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="apeP" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="apeM" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="Estudios" Type="varchar" MaxLength="20" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Materias">
+          <Key>
+            <PropertyRef Name="claveMateria" />
+          </Key>
+          <Property Name="claveMateria" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="materias" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="creditos" Type="int" Nullable="false" />
+          <Property Name="dia" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="horainicio" Type="varchar" MaxLength="20" />
+          <Property Name="horafin" Type="varchar" MaxLength="20" />
+        </EntityType>
+        <EntityType Name="OpcionCurso">
+          <Key>
+            <PropertyRef Name="OpcionCurso" />
+          </Key>
+          <Property Name="OpcionCurso" Type="varchar" MaxLength="20" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Salones">
+          <Key>
+            <PropertyRef Name="Salones" />
+          </Key>
+          <Property Name="Salones" Type="varchar" MaxLength="20" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Semestre">
+          <Key>
+            <PropertyRef Name="semestre" />
+          </Key>
+          <Property Name="semestre" Type="varchar" MaxLength="20" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tokenes">
+          <Key>
+            <PropertyRef Name="id_token" />
+          </Key>
+          <Property Name="id_token" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="tokeen" Type="varchar" MaxLength="500" />
+          <Property Name="id_alumnosbd" Type="int" />
+          <Property Name="tokenissued" Type="datetime" />
+          <Property Name="tokendeleted" Type="datetime" />
+          <Property Name="status" Type="bit" />
+        </EntityType>
+        <Association Name="FK_Alumnos_Carreras">
+          <End Role="Carreras" Type="Self.Carreras" Multiplicity="1" />
+          <End Role="Alumnos" Type="Self.Alumnos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Carreras">
+              <PropertyRef Name="id_Carreras" />
+            </Principal>
+            <Dependent Role="Alumnos">
+              <PropertyRef Name="id_Carreras" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Alumnos_Grupos">
+          <End Role="Grupos" Type="Self.Grupos" Multiplicity="1" />
+          <End Role="Alumnos" Type="Self.Alumnos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Grupos">
+              <PropertyRef Name="Grupos" />
+            </Principal>
+            <Dependent Role="Alumnos">
+              <PropertyRef Name="Grupos" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Alumnos_OpcionCurso">
+          <End Role="OpcionCurso" Type="Self.OpcionCurso" Multiplicity="1" />
+          <End Role="Alumnos" Type="Self.Alumnos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="OpcionCurso">
+              <PropertyRef Name="OpcionCurso" />
+            </Principal>
+            <Dependent Role="Alumnos">
+              <PropertyRef Name="OpcionCurso" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Alumnos_Semestre">
+          <End Role="Semestre" Type="Self.Semestre" Multiplicity="1" />
+          <End Role="Alumnos" Type="Self.Alumnos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Semestre">
+              <PropertyRef Name="semestre" />
+            </Principal>
+            <Dependent Role="Alumnos">
+              <PropertyRef Name="semestre" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Carreras_Especialidad">
+          <End Role="Especialidad" Type="Self.Especialidad" Multiplicity="1" />
+          <End Role="Carreras" Type="Self.Carreras" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Especialidad">
+              <PropertyRef Name="especialidad" />
+            </Principal>
+            <Dependent Role="Carreras">
+              <PropertyRef Name="especialidad" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Horario_Alumnos">
+          <End Role="Alumnos" Type="Self.Alumnos" Multiplicity="1" />
+          <End Role="Horario" Type="Self.Horario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Alumnos">
+              <PropertyRef Name="id_Alumnos" />
+            </Principal>
+            <Dependent Role="Horario">
+              <PropertyRef Name="id_Alumnos" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Horario_Maestro_Materia">
+          <End Role="Maestro_Materia" Type="Self.Maestro_Materia" Multiplicity="1" />
+          <End Role="Horario" Type="Self.Horario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Maestro_Materia">
+              <PropertyRef Name="maestroMateria" />
+            </Principal>
+            <Dependent Role="Horario">
+              <PropertyRef Name="maestroMateria" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Horario_Salones">
+          <End Role="Salones" Type="Self.Salones" Multiplicity="1" />
+          <End Role="Horario" Type="Self.Horario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Salones">
+              <PropertyRef Name="Salones" />
+            </Principal>
+            <Dependent Role="Horario">
+              <PropertyRef Name="Salones" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Materias_dia">
+          <End Role="dia" Type="Self.dia" Multiplicity="1" />
+          <End Role="Materias" Type="Self.Materias" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="dia">
+              <PropertyRef Name="dia" />
+            </Principal>
+            <Dependent Role="Materias">
+              <PropertyRef Name="dia" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Mestro_Materia_Maestros">
+          <End Role="Maestros" Type="Self.Maestros" Multiplicity="1" />
+          <End Role="Maestro_Materia" Type="Self.Maestro_Materia" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Maestros">
+              <PropertyRef Name="id_Maestro" />
+            </Principal>
+            <Dependent Role="Maestro_Materia">
+              <PropertyRef Name="id_Maestro" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Mestro_Materia_Materias">
+          <End Role="Materias" Type="Self.Materias" Multiplicity="1" />
+          <End Role="Maestro_Materia" Type="Self.Maestro_Materia" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Materias">
+              <PropertyRef Name="claveMateria" />
+            </Principal>
+            <Dependent Role="Maestro_Materia">
+              <PropertyRef Name="claveMateria" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tokenes_Alumnos">
+          <End Role="Alumnos" Type="Self.Alumnos" Multiplicity="0..1" />
+          <End Role="tokenes" Type="Self.tokenes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Alumnos">
+              <PropertyRef Name="id_Alumnos" />
+            </Principal>
+            <Dependent Role="tokenes">
+              <PropertyRef Name="id_alumnosbd" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="aplicationModelStoreContainer">
+          <EntitySet Name="Alumnos" EntityType="Self.Alumnos" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Carreras" EntityType="Self.Carreras" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="dia" EntityType="Self.dia" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Especialidad" EntityType="Self.Especialidad" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Grupos" EntityType="Self.Grupos" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Horario" EntityType="Self.Horario" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Maestro_Materia" EntityType="Self.Maestro_Materia" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Maestros" EntityType="Self.Maestros" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Materias" EntityType="Self.Materias" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="OpcionCurso" EntityType="Self.OpcionCurso" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Salones" EntityType="Self.Salones" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Semestre" EntityType="Self.Semestre" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tokenes" EntityType="Self.tokenes" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Alumnos_Carreras" Association="Self.FK_Alumnos_Carreras">
+            <End Role="Carreras" EntitySet="Carreras" />
+            <End Role="Alumnos" EntitySet="Alumnos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Alumnos_Grupos" Association="Self.FK_Alumnos_Grupos">
+            <End Role="Grupos" EntitySet="Grupos" />
+            <End Role="Alumnos" EntitySet="Alumnos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Alumnos_OpcionCurso" Association="Self.FK_Alumnos_OpcionCurso">
+            <End Role="OpcionCurso" EntitySet="OpcionCurso" />
+            <End Role="Alumnos" EntitySet="Alumnos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Alumnos_Semestre" Association="Self.FK_Alumnos_Semestre">
+            <End Role="Semestre" EntitySet="Semestre" />
+            <End Role="Alumnos" EntitySet="Alumnos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Carreras_Especialidad" Association="Self.FK_Carreras_Especialidad">
+            <End Role="Especialidad" EntitySet="Especialidad" />
+            <End Role="Carreras" EntitySet="Carreras" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Horario_Alumnos" Association="Self.FK_Horario_Alumnos">
+            <End Role="Alumnos" EntitySet="Alumnos" />
+            <End Role="Horario" EntitySet="Horario" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Horario_Maestro_Materia" Association="Self.FK_Horario_Maestro_Materia">
+            <End Role="Maestro_Materia" EntitySet="Maestro_Materia" />
+            <End Role="Horario" EntitySet="Horario" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Horario_Salones" Association="Self.FK_Horario_Salones">
+            <End Role="Salones" EntitySet="Salones" />
+            <End Role="Horario" EntitySet="Horario" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Materias_dia" Association="Self.FK_Materias_dia">
+            <End Role="dia" EntitySet="dia" />
+            <End Role="Materias" EntitySet="Materias" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Mestro_Materia_Maestros" Association="Self.FK_Mestro_Materia_Maestros">
+            <End Role="Maestros" EntitySet="Maestros" />
+            <End Role="Maestro_Materia" EntitySet="Maestro_Materia" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Mestro_Materia_Materias" Association="Self.FK_Mestro_Materia_Materias">
+            <End Role="Materias" EntitySet="Materias" />
+            <End Role="Maestro_Materia" EntitySet="Maestro_Materia" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tokenes_Alumnos" Association="Self.FK_tokenes_Alumnos">
+            <End Role="Alumnos" EntitySet="Alumnos" />
+            <End Role="tokenes" EntitySet="tokenes" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="aplicationModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Alumno">
+          <Key>
+            <PropertyRef Name="id_Alumnos" />
+          </Key>
+          <Property Name="id_Alumnos" Type="Int32" Nullable="false" />
+          <Property Name="nombre" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="apeP" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="apeM" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="contrasena" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Grupos" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="id_Carreras" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="semestre" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="OpcionCurso" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Carrera" Relationship="Self.FK_Alumnos_Carreras" FromRole="Alumnos" ToRole="Carreras" />
+          <NavigationProperty Name="Grupos1" Relationship="Self.FK_Alumnos_Grupos" FromRole="Alumnos" ToRole="Grupos" />
+          <NavigationProperty Name="OpcionCurso1" Relationship="Self.FK_Alumnos_OpcionCurso" FromRole="Alumnos" ToRole="OpcionCurso" />
+          <NavigationProperty Name="Semestre1" Relationship="Self.FK_Alumnos_Semestre" FromRole="Alumnos" ToRole="Semestre" />
+          <NavigationProperty Name="Horarios" Relationship="Self.FK_Horario_Alumnos" FromRole="Alumnos" ToRole="Horario" />
+          <NavigationProperty Name="tokenes" Relationship="Self.FK_tokenes_Alumnos" FromRole="Alumnos" ToRole="tokenes" />
+        </EntityType>
+        <EntityType Name="Carrera">
+          <Key>
+            <PropertyRef Name="id_Carreras" />
+          </Key>
+          <Property Name="id_Carreras" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Carreras" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="especialidad" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Alumnos" Relationship="Self.FK_Alumnos_Carreras" FromRole="Carreras" ToRole="Alumnos" />
+          <NavigationProperty Name="Especialidad1" Relationship="Self.FK_Carreras_Especialidad" FromRole="Carreras" ToRole="Especialidad" />
+        </EntityType>
+        <EntityType Name="dia">
+          <Key>
+            <PropertyRef Name="dia1" />
+          </Key>
+          <Property Name="dia1" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Materias" Relationship="Self.FK_Materias_dia" FromRole="dia" ToRole="Materias" />
+        </EntityType>
+        <EntityType Name="Especialidad">
+          <Key>
+            <PropertyRef Name="especialidad1" />
+          </Key>
+          <Property Name="especialidad1" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Carreras" Relationship="Self.FK_Carreras_Especialidad" FromRole="Especialidad" ToRole="Carreras" />
+        </EntityType>
+        <EntityType Name="Grupos">
+          <Key>
+            <PropertyRef Name="Grupos1" />
+          </Key>
+          <Property Name="Grupos1" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Alumnos" Relationship="Self.FK_Alumnos_Grupos" FromRole="Grupos" ToRole="Alumnos" />
+        </EntityType>
+        <EntityType Name="Horario">
+          <Key>
+            <PropertyRef Name="horario1" />
+          </Key>
+          <Property Name="horario1" Type="Int32" Nullable="false" />
+          <Property Name="id_Alumnos" Type="Int32" Nullable="false" />
+          <Property Name="Salones" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="maestroMateria" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Alumno" Relationship="Self.FK_Horario_Alumnos" FromRole="Horario" ToRole="Alumnos" />
+          <NavigationProperty Name="Maestro_Materia" Relationship="Self.FK_Horario_Maestro_Materia" FromRole="Horario" ToRole="Maestro_Materia" />
+          <NavigationProperty Name="Salone" Relationship="Self.FK_Horario_Salones" FromRole="Horario" ToRole="Salones" />
+        </EntityType>
+        <EntityType Name="Maestro_Materia">
+          <Key>
+            <PropertyRef Name="maestroMateria" />
+          </Key>
+          <Property Name="maestroMateria" Type="Int32" Nullable="false" />
+          <Property Name="id_Maestro" Type="Int32" Nullable="false" />
+          <Property Name="claveMateria" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Horarios" Relationship="Self.FK_Horario_Maestro_Materia" FromRole="Maestro_Materia" ToRole="Horario" />
+          <NavigationProperty Name="Maestro" Relationship="Self.FK_Mestro_Materia_Maestros" FromRole="Maestro_Materia" ToRole="Maestros" />
+          <NavigationProperty Name="Materia" Relationship="Self.FK_Mestro_Materia_Materias" FromRole="Maestro_Materia" ToRole="Materias" />
+        </EntityType>
+        <EntityType Name="Maestro">
+          <Key>
+            <PropertyRef Name="id_Maestro" />
+          </Key>
+          <Property Name="id_Maestro" Type="Int32" Nullable="false" />
+          <Property Name="nombre" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="apeP" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="apeM" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Estudios" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Maestro_Materia" Relationship="Self.FK_Mestro_Materia_Maestros" FromRole="Maestros" ToRole="Maestro_Materia" />
+        </EntityType>
+        <EntityType Name="Materia">
+          <Key>
+            <PropertyRef Name="claveMateria" />
+          </Key>
+          <Property Name="claveMateria" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="materias" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="creditos" Type="Int32" Nullable="false" />
+          <Property Name="dia" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="horainicio" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="horafin" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="dia1" Relationship="Self.FK_Materias_dia" FromRole="Materias" ToRole="dia" />
+          <NavigationProperty Name="Maestro_Materia" Relationship="Self.FK_Mestro_Materia_Materias" FromRole="Materias" ToRole="Maestro_Materia" />
+        </EntityType>
+        <EntityType Name="OpcionCurso">
+          <Key>
+            <PropertyRef Name="OpcionCurso1" />
+          </Key>
+          <Property Name="OpcionCurso1" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Alumnos" Relationship="Self.FK_Alumnos_OpcionCurso" FromRole="OpcionCurso" ToRole="Alumnos" />
+        </EntityType>
+        <EntityType Name="Salone">
+          <Key>
+            <PropertyRef Name="Salones" />
+          </Key>
+          <Property Name="Salones" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Horarios" Relationship="Self.FK_Horario_Salones" FromRole="Salones" ToRole="Horario" />
+        </EntityType>
+        <EntityType Name="Semestre">
+          <Key>
+            <PropertyRef Name="semestre1" />
+          </Key>
+          <Property Name="semestre1" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Alumnos" Relationship="Self.FK_Alumnos_Semestre" FromRole="Semestre" ToRole="Alumnos" />
+        </EntityType>
+        <EntityType Name="tokene">
+          <Key>
+            <PropertyRef Name="id_token" />
+          </Key>
+          <Property Name="id_token" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="tokeen" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="id_alumnosbd" Type="Int32" />
+          <Property Name="tokenissued" Type="DateTime" Precision="3" />
+          <Property Name="tokendeleted" Type="DateTime" Precision="3" />
+          <Property Name="status" Type="Boolean" />
+          <NavigationProperty Name="Alumno" Relationship="Self.FK_tokenes_Alumnos" FromRole="tokenes" ToRole="Alumnos" />
+        </EntityType>
+        <Association Name="FK_Alumnos_Carreras">
+          <End Role="Carreras" Type="Self.Carrera" Multiplicity="1" />
+          <End Role="Alumnos" Type="Self.Alumno" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Carreras">
+              <PropertyRef Name="id_Carreras" />
+            </Principal>
+            <Dependent Role="Alumnos">
+              <PropertyRef Name="id_Carreras" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Alumnos_Grupos">
+          <End Role="Grupos" Type="Self.Grupos" Multiplicity="1" />
+          <End Role="Alumnos" Type="Self.Alumno" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Grupos">
+              <PropertyRef Name="Grupos1" />
+            </Principal>
+            <Dependent Role="Alumnos">
+              <PropertyRef Name="Grupos" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Alumnos_OpcionCurso">
+          <End Role="OpcionCurso" Type="Self.OpcionCurso" Multiplicity="1" />
+          <End Role="Alumnos" Type="Self.Alumno" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="OpcionCurso">
+              <PropertyRef Name="OpcionCurso1" />
+            </Principal>
+            <Dependent Role="Alumnos">
+              <PropertyRef Name="OpcionCurso" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Alumnos_Semestre">
+          <End Role="Semestre" Type="Self.Semestre" Multiplicity="1" />
+          <End Role="Alumnos" Type="Self.Alumno" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Semestre">
+              <PropertyRef Name="semestre1" />
+            </Principal>
+            <Dependent Role="Alumnos">
+              <PropertyRef Name="semestre" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Horario_Alumnos">
+          <End Role="Alumnos" Type="Self.Alumno" Multiplicity="1" />
+          <End Role="Horario" Type="Self.Horario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Alumnos">
+              <PropertyRef Name="id_Alumnos" />
+            </Principal>
+            <Dependent Role="Horario">
+              <PropertyRef Name="id_Alumnos" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tokenes_Alumnos">
+          <End Role="Alumnos" Type="Self.Alumno" Multiplicity="0..1" />
+          <End Role="tokenes" Type="Self.tokene" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Alumnos">
+              <PropertyRef Name="id_Alumnos" />
+            </Principal>
+            <Dependent Role="tokenes">
+              <PropertyRef Name="id_alumnosbd" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Carreras_Especialidad">
+          <End Role="Especialidad" Type="Self.Especialidad" Multiplicity="1" />
+          <End Role="Carreras" Type="Self.Carrera" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Especialidad">
+              <PropertyRef Name="especialidad1" />
+            </Principal>
+            <Dependent Role="Carreras">
+              <PropertyRef Name="especialidad" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Materias_dia">
+          <End Role="dia" Type="Self.dia" Multiplicity="1" />
+          <End Role="Materias" Type="Self.Materia" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="dia">
+              <PropertyRef Name="dia1" />
+            </Principal>
+            <Dependent Role="Materias">
+              <PropertyRef Name="dia" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Horario_Maestro_Materia">
+          <End Role="Maestro_Materia" Type="Self.Maestro_Materia" Multiplicity="1" />
+          <End Role="Horario" Type="Self.Horario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Maestro_Materia">
+              <PropertyRef Name="maestroMateria" />
+            </Principal>
+            <Dependent Role="Horario">
+              <PropertyRef Name="maestroMateria" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Horario_Salones">
+          <End Role="Salones" Type="Self.Salone" Multiplicity="1" />
+          <End Role="Horario" Type="Self.Horario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Salones">
+              <PropertyRef Name="Salones" />
+            </Principal>
+            <Dependent Role="Horario">
+              <PropertyRef Name="Salones" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Mestro_Materia_Maestros">
+          <End Role="Maestros" Type="Self.Maestro" Multiplicity="1" />
+          <End Role="Maestro_Materia" Type="Self.Maestro_Materia" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Maestros">
+              <PropertyRef Name="id_Maestro" />
+            </Principal>
+            <Dependent Role="Maestro_Materia">
+              <PropertyRef Name="id_Maestro" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Mestro_Materia_Materias">
+          <End Role="Materias" Type="Self.Materia" Multiplicity="1" />
+          <End Role="Maestro_Materia" Type="Self.Maestro_Materia" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Materias">
+              <PropertyRef Name="claveMateria" />
+            </Principal>
+            <Dependent Role="Maestro_Materia">
+              <PropertyRef Name="claveMateria" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="aplicationEntities1" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Alumnos" EntityType="Self.Alumno" />
+          <EntitySet Name="Carreras" EntityType="Self.Carrera" />
+          <EntitySet Name="dias" EntityType="Self.dia" />
+          <EntitySet Name="Especialidads" EntityType="Self.Especialidad" />
+          <EntitySet Name="Grupos" EntityType="Self.Grupos" />
+          <EntitySet Name="Horarios" EntityType="Self.Horario" />
+          <EntitySet Name="Maestro_Materia" EntityType="Self.Maestro_Materia" />
+          <EntitySet Name="Maestros" EntityType="Self.Maestro" />
+          <EntitySet Name="Materias" EntityType="Self.Materia" />
+          <EntitySet Name="OpcionCursoes" EntityType="Self.OpcionCurso" />
+          <EntitySet Name="Salones" EntityType="Self.Salone" />
+          <EntitySet Name="Semestres" EntityType="Self.Semestre" />
+          <EntitySet Name="tokenes" EntityType="Self.tokene" />
+          <AssociationSet Name="FK_Alumnos_Carreras" Association="Self.FK_Alumnos_Carreras">
+            <End Role="Carreras" EntitySet="Carreras" />
+            <End Role="Alumnos" EntitySet="Alumnos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Alumnos_Grupos" Association="Self.FK_Alumnos_Grupos">
+            <End Role="Grupos" EntitySet="Grupos" />
+            <End Role="Alumnos" EntitySet="Alumnos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Alumnos_OpcionCurso" Association="Self.FK_Alumnos_OpcionCurso">
+            <End Role="OpcionCurso" EntitySet="OpcionCursoes" />
+            <End Role="Alumnos" EntitySet="Alumnos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Alumnos_Semestre" Association="Self.FK_Alumnos_Semestre">
+            <End Role="Semestre" EntitySet="Semestres" />
+            <End Role="Alumnos" EntitySet="Alumnos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Horario_Alumnos" Association="Self.FK_Horario_Alumnos">
+            <End Role="Alumnos" EntitySet="Alumnos" />
+            <End Role="Horario" EntitySet="Horarios" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tokenes_Alumnos" Association="Self.FK_tokenes_Alumnos">
+            <End Role="Alumnos" EntitySet="Alumnos" />
+            <End Role="tokenes" EntitySet="tokenes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Carreras_Especialidad" Association="Self.FK_Carreras_Especialidad">
+            <End Role="Especialidad" EntitySet="Especialidads" />
+            <End Role="Carreras" EntitySet="Carreras" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Materias_dia" Association="Self.FK_Materias_dia">
+            <End Role="dia" EntitySet="dias" />
+            <End Role="Materias" EntitySet="Materias" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Horario_Maestro_Materia" Association="Self.FK_Horario_Maestro_Materia">
+            <End Role="Maestro_Materia" EntitySet="Maestro_Materia" />
+            <End Role="Horario" EntitySet="Horarios" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Horario_Salones" Association="Self.FK_Horario_Salones">
+            <End Role="Salones" EntitySet="Salones" />
+            <End Role="Horario" EntitySet="Horarios" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Mestro_Materia_Maestros" Association="Self.FK_Mestro_Materia_Maestros">
+            <End Role="Maestros" EntitySet="Maestros" />
+            <End Role="Maestro_Materia" EntitySet="Maestro_Materia" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Mestro_Materia_Materias" Association="Self.FK_Mestro_Materia_Materias">
+            <End Role="Materias" EntitySet="Materias" />
+            <End Role="Maestro_Materia" EntitySet="Maestro_Materia" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="aplicationModelStoreContainer" CdmEntityContainer="aplicationEntities1">
+          <EntitySetMapping Name="Alumnos">
+            <EntityTypeMapping TypeName="aplicationModel.Alumno">
+              <MappingFragment StoreEntitySet="Alumnos">
+                <ScalarProperty Name="id_Alumnos" ColumnName="id_Alumnos" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="apeP" ColumnName="apeP" />
+                <ScalarProperty Name="apeM" ColumnName="apeM" />
+                <ScalarProperty Name="contrasena" ColumnName="contrasena" />
+                <ScalarProperty Name="Grupos" ColumnName="Grupos" />
+                <ScalarProperty Name="id_Carreras" ColumnName="id_Carreras" />
+                <ScalarProperty Name="semestre" ColumnName="semestre" />
+                <ScalarProperty Name="OpcionCurso" ColumnName="OpcionCurso" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Carreras">
+            <EntityTypeMapping TypeName="aplicationModel.Carrera">
+              <MappingFragment StoreEntitySet="Carreras">
+                <ScalarProperty Name="id_Carreras" ColumnName="id_Carreras" />
+                <ScalarProperty Name="Carreras" ColumnName="Carreras" />
+                <ScalarProperty Name="especialidad" ColumnName="especialidad" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="dias">
+            <EntityTypeMapping TypeName="aplicationModel.dia">
+              <MappingFragment StoreEntitySet="dia">
+                <ScalarProperty Name="dia1" ColumnName="dia" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Especialidads">
+            <EntityTypeMapping TypeName="aplicationModel.Especialidad">
+              <MappingFragment StoreEntitySet="Especialidad">
+                <ScalarProperty Name="especialidad1" ColumnName="especialidad" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Grupos">
+            <EntityTypeMapping TypeName="aplicationModel.Grupos">
+              <MappingFragment StoreEntitySet="Grupos">
+                <ScalarProperty Name="Grupos1" ColumnName="Grupos" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Horarios">
+            <EntityTypeMapping TypeName="aplicationModel.Horario">
+              <MappingFragment StoreEntitySet="Horario">
+                <ScalarProperty Name="horario1" ColumnName="horario" />
+                <ScalarProperty Name="id_Alumnos" ColumnName="id_Alumnos" />
+                <ScalarProperty Name="Salones" ColumnName="Salones" />
+                <ScalarProperty Name="maestroMateria" ColumnName="maestroMateria" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Maestro_Materia">
+            <EntityTypeMapping TypeName="aplicationModel.Maestro_Materia">
+              <MappingFragment StoreEntitySet="Maestro_Materia">
+                <ScalarProperty Name="maestroMateria" ColumnName="maestroMateria" />
+                <ScalarProperty Name="id_Maestro" ColumnName="id_Maestro" />
+                <ScalarProperty Name="claveMateria" ColumnName="claveMateria" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Maestros">
+            <EntityTypeMapping TypeName="aplicationModel.Maestro">
+              <MappingFragment StoreEntitySet="Maestros">
+                <ScalarProperty Name="id_Maestro" ColumnName="id_Maestro" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="apeP" ColumnName="apeP" />
+                <ScalarProperty Name="apeM" ColumnName="apeM" />
+                <ScalarProperty Name="Estudios" ColumnName="Estudios" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Materias">
+            <EntityTypeMapping TypeName="aplicationModel.Materia">
+              <MappingFragment StoreEntitySet="Materias">
+                <ScalarProperty Name="claveMateria" ColumnName="claveMateria" />
+                <ScalarProperty Name="materias" ColumnName="materias" />
+                <ScalarProperty Name="creditos" ColumnName="creditos" />
+                <ScalarProperty Name="dia" ColumnName="dia" />
+                <ScalarProperty Name="horainicio" ColumnName="horainicio" />
+                <ScalarProperty Name="horafin" ColumnName="horafin" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="OpcionCursoes">
+            <EntityTypeMapping TypeName="aplicationModel.OpcionCurso">
+              <MappingFragment StoreEntitySet="OpcionCurso">
+                <ScalarProperty Name="OpcionCurso1" ColumnName="OpcionCurso" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Salones">
+            <EntityTypeMapping TypeName="aplicationModel.Salone">
+              <MappingFragment StoreEntitySet="Salones">
+                <ScalarProperty Name="Salones" ColumnName="Salones" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Semestres">
+            <EntityTypeMapping TypeName="aplicationModel.Semestre">
+              <MappingFragment StoreEntitySet="Semestre">
+                <ScalarProperty Name="semestre1" ColumnName="semestre" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tokenes">
+            <EntityTypeMapping TypeName="aplicationModel.tokene">
+              <MappingFragment StoreEntitySet="tokenes">
+                <ScalarProperty Name="id_token" ColumnName="id_token" />
+                <ScalarProperty Name="tokeen" ColumnName="tokeen" />
+                <ScalarProperty Name="id_alumnosbd" ColumnName="id_alumnosbd" />
+                <ScalarProperty Name="tokenissued" ColumnName="tokenissued" />
+                <ScalarProperty Name="tokendeleted" ColumnName="tokendeleted" />
+                <ScalarProperty Name="status" ColumnName="status" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
